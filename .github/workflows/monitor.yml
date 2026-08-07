@@ -4,13 +4,12 @@ on:
   schedule:
     # 每天 UTC 时间 0:00（北京时间早上 8:00）运行一次
     - cron: '0 0 * * *'
-  workflow_dispatch: # 支持在 GitHub Actions 界面手动点击触发测试
+  workflow_dispatch: # 支持在 GitHub Actions 界面手动触发测试
 
 jobs:
   check-and-notify:
     runs-on: ubuntu-latest
 
-    # 赋予仓库写入权限，以便提交更新后的 hash 文件以及让 keepalive-workflow 正常工作
     permissions:
       contents: write
 
@@ -52,12 +51,11 @@ jobs:
             echo "README 内容未发生变动，跳过发送邮件。"
           fi
 
-      # 4. 如果发生变动，发送邮件提醒（直接将 README 内容作为邮件 HTML 正文）
+      # 4. 如果发生变动，发送邮件提醒
       - name: Send mail on update
         if: steps.check_change.outputs.CHANGED == 'true'
         uses: dawidd6/action-send-mail@v3
         with:
-          # SMTP 服务器配置 (以 QQ 邮箱为例，若用 Gmail 改为 smtp.gmail.com，163 改为 smtp.163.com)
           server_address: smtp.qq.com
           server_port: 465
           secure: true
@@ -69,19 +67,18 @@ jobs:
           to: ${{ secrets.TO_EMAIL }}
           from: GitHub Actions Monitor <${{ secrets.MAIL_USERNAME }}>
           
-          # 将读取到的 latest_readme.md 文件内容直接作为邮件正文发送
           html_body: file://data/latest_readme.md
 
-      # 5. 当发生更新时，把最新的 Hash 文件提交并推送到你的 GitHub 仓库
-      - name: Commit updated hash
-        if: steps.check_change.outputs.CHANGED == 'true'
+      # 5. 更新数据并提交（兼具更新记录与防 60 天暂停的功能）
+      - name: Commit updated hash and keepalive
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add data/last_hash.txt
-          git commit -m "chore: update target readme hash [skip ci]" || exit 0
+          
+          # 始终更新最后检查时间戳文件，确保仓库始终有 Commit 记录（原生防暂停）
+          echo "Last check: $(date)" > data/last_check.txt
+          
+          git add data/
+          # 如果有变更（无论是 hash 变更还是心跳时间戳变更）就提交推送
+          git commit -m "chore: auto update status & keepalive [skip ci]" || exit 0
           git push
-
-      # 6. 防止 GitHub 在连续 60 天无 Commit 时自动暂停 Schedule 任务
-      - name: Keepalive Workflow
-        uses: gautamkrishnar/keepalive-workflow@v2
