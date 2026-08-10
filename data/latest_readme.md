@@ -36,18 +36,26 @@
 <h4>节点列表：(这里最多只显示20个节点，其他免费节点请到app里获取)</h4>
 
 ```
-vless://711c018e-2692-4aa8-93f3-544d83fcd16c@jdwadgw.cvewfjg.shop:443?security=reality&type=tcp&packetEncoding=xudp&sni=www.cloudflare.com&fp=chrome&flow=xtls-rprx-vision&sid=7a76f3c4b9dd&pbk=HyVSZ2OyySwXT-xRhTAqoiuYflIaj_b0Jxm7S1Iq9hs&encryption=none#%E7%BE%8E%E5%9B%BD+V2CROSS.COM
-hysteria2://71cada65-d23e-418c-88e4-a06188d14689@de-two.quiet-rogue.site:443?security=tls&sni=de-two.quiet-rogue.site#%E7%BE%8E%E5%9B%BD+V2CROSS.COM
-hysteria2://9d3356a0-c07e-43cc-b30e-450bd50521b8@db1.mangshe.xyz:2056?insecure=1&security=tls&sni=db1.mangshe.xyz#%E8%8B%B1%E5%9B%BD+V2CROSS.COM
-vless://d0298536-d670-4045-bbb1-ddd5ea68683e@time.is:443?security=tls&type=ws&path=/&host=azadnet-826.pages.Dev&packetEncoding=xudp&alpn=h3,h2,http/1.1&sni=azadnet-826.pages.Dev&fp=chrome&encryption=none#%E7%BE%8E%E5%9B%BD+CloudFlare%E8%8A%82%E7%82%B9
-vless://6202b230-417c-4d8e-b624-0f71afa9c75d@154.197.75.40:8880?security=none&type=ws&path=/?ed=2560&host=vms.lifetime37.workers.dev&packetEncoding=xudp&encryption=none#%E5%8D%97%E9%9D%9E+V2CROSS.COM
-vless://6202b230-417c-4d8e-b624-0f71afa9c75d@45.12.30.30:8880?security=none&type=ws&path=/&host=vms.lifetime28.workers.dev&packetEncoding=xudp#%E6%AC%A7%E7%9B%9F+V2CROSS.COM
-trojan://S.ibYdZshHTF-ne.M+.Fznp_-hyFFnCSix@149.104.104.58:443?security=tls&sni=#%E7%BE%8E%E5%9B%BD+V2CROSS.COM
-hy2://71cada65-d23e-418c-88e4-a06188d14689@de-two.quiet-rogue.site:443?security=tls&sni=de-two.quiet-rogue.site#%E7%BE%8E%E5%9B%BD+V2CROSS.COM
-vless://f04c31f7-cfab-4824-d167-4137d836ea82@i3.cloud--vpn.site:443?encryption=none&security=tls&sni=ssl.fastly.com&alpn=h2&fp=chrome&allowinsecure=0&type=ws&host=c12.com&path=/#%E7%BE%8E%E5%9B%BD+%E4%B9%94%E6%B2%BB%E4%BA%9A%E6%B4%B2%E4%BA%9A%E7%89%B9%E5%85%B0%E5%A4%A7Fastly%E8%8A%82%E7%82%B9
-trojan://humanity@104.19.64.105:443?host=www.calmlunch.com&path=%2Fassignment&security=tls&sni=www.calmlunch.com&type=ws#%E7%BE%8E%E5%9B%BD+CloudFlare%E8%8A%82%E7%82%B9
-vless://424fa201-3f94-479e-b533-d5257cf9a207@89.117.112.4:80?security=none&type=ws&path=/pyip=Telegram🇨🇳 @VPNine1&host=floral-thunder-10d3.82-67d.workers.dev&packetEncoding=xudp&encryption=none#%E7%AB%8B%E9%99%B6%E5%AE%9B+V2CROSS.COM
-vless://cf39fab0-bb85-42cb-9945-2ad69d78e575@45.192.200.66:8443?encryption=none&security=tls&sni=rubifen.adaspoloandco.com&fp=chrome&insecure=0&allowInsecure=0&type=ws&host=rubifen.adaspoloandco.com&path=%2FGOrbEh#%E5%8D%97%E9%9D%9E+V2CROSS.COM
+vless://1043634e-8d9d-4736-83fa-f14ddc9d464c@188.114.97.6:443?path=/id-amz&security=tls&encryption=none&insecure=0&host=dfsuporte.garena.com.ex33r.eu.cc&type=ws&allowInsecure=0&sni=dfsuporte.garena.com.ex33r.eu.cc#%E5%B7%B4%E8%A5%BF%E5%9C%A3%E4%BF%9D%E7%BD%97+CloudFlare%E8%8A%82%E7%82%B9
+trojan://humanity@104.19.229.21:443?path=/assignment&security=tls&insecure=0&host=www.ignitelimit.com&type=ws&allowInsecure=0&sni=www.ignitelimit.com#%E7%BE%8E%E5%9B%BD+CloudFlare%E8%8A%82%E7%82%B9
+vless://6202b230-417c-4d8e-b624-0f71afa9c75d@45.40.149.50:8880?encryption=none&security=none&type=ws&host=vms.lifetime39.workers.dev&path=%2F#%E7%BE%8E%E5%9B%BD+V2CROSS.COM
+vless://6202b230-417c-4d8e-b624-0f71afa9c75d@198.71.232.30:8880?security=none&type=ws&path=/&host=vms.lifetime07.workers.dev&packetEncoding=xudp&encryption=none#%E7%BE%8E%E5%9B%BD+%E4%BA%9A%E5%88%A9%E6%A1%91%E9%82%A3%E5%B7%9E%E6%96%AF%E7%A7%91%E8%8C%A8%E4%BB%A3%E5%B0%94%E5%B8%82Go+Daddy%E9%9B%86%E5%9B%A2%E5%85%AC%E5%8F%B8
+trojan://humanity@ip.myip2.qzz.io:443?fp=chrome&path=%2Fassignment&security=tls&sni=www.ignitelimit.com&type=ws#%E7%BE%8E%E5%9B%BD+CloudFlare%E8%8A%82%E7%82%B9
+vless://59eefc04-b831-45cf-8d68-63ca23381171@kzbkjum.cvewfjg.shop:443?security=reality&type=tcp&packetEncoding=xudp&sni=www.cloudflare.com&fp=chrome&flow=xtls-rprx-vision&sid=4c5a76834671&pbk=4-qE0E0B5ShfnAe0KFM0qRkXJ33rRF39AlHK7MpBzAE#%E5%BE%B7%E5%9B%BD+V2CROSS.COM
+trojan://humanity@104.16.174.44:443?Telegram=@GozargahAzad,@GozargahAzad,@GozargahAzad,@GozargahAzad,@GozargahAzad,@GozargahAzad,@GozargahAzad&path=%2Fassignment&security=tls&insecure=0&host=www.ignitelimit.com&type=ws&allowInsecure=0&sni=www.ignitelimit.com#%E7%BE%8E%E5%9B%BD+CloudFlare%E8%8A%82%E7%82%B9
+vless://72c2b7cc-fcd9-494f-8a2e-21dcd062ff11@45.40.150.4:80?encryption=none&host=holy-breeze-0bac.47-dec.workers.dev&path=/pyip=Telegram🇨🇳++&security=none&type=ws#%E7%BE%8E%E5%9B%BD+V2CROSS.COM
+trojan://humanity@104.18.152.246:443?path=/assignment&security=tls&insecure=0&host=www.ignitelimit.com&type=ws&allowInsecure=0&sni=www.ignitelimit.com#%E7%BE%8E%E5%9B%BD+CloudFlare%E8%8A%82%E7%82%B9
+trojan://humanity@104.18.152.144:443?fp=chrome&path=%2Fassignment&security=tls&sni=www.ignitelimit.com&type=ws#%E7%BE%8E%E5%9B%BD+CloudFlare%E8%8A%82%E7%82%B9
+trojan://humanity@104.18.152.97:443?host=www.ignitelimit.com&path=%2Fassignment&security=tls&sni=www.ignitelimit.com&type=ws#%E7%BE%8E%E5%9B%BD+CloudFlare%E8%8A%82%E7%82%B9
+trojan://humanity@198.41.223.96:443?alpn=http%2F1.1%2Ch2%2Ch3&fp=chrome&path=%2Fassignment&security=tls&sni=www.ignitelimit.com&type=ws#%E7%BE%8E%E5%9B%BD+CloudFlare%E8%8A%82%E7%82%B9
+hysteria2://uj7XGZGUqRlmdpk6rysyZMN333RWsxTFj0hBIMaFV-NUCd5r@185.225.19.39:443?security=tls&sni=ro.h2corp.org#%E6%91%A9%E5%B0%94%E5%A4%9A%E7%93%A6+V2CROSS.COM
+trojan://humanity@104.17.111.8:443?type=ws&host=www.ignitelimit.com&path=/assignment&security=tls&sni=www.ignitelimit.com&fp=chrome&allowInsecure=0&echfq=none#%E7%BE%8E%E5%9B%BD+CloudFlare%E8%8A%82%E7%82%B9
+trojan://humanity@104.18.152.208:443?fp=chrome&path=%2Fassignment&security=tls&sni=www.ignitelimit.com&type=ws#%E7%BE%8E%E5%9B%BD+CloudFlare%E8%8A%82%E7%82%B9
+trojan://humanity@104.18.152.133:443?fp=chrome&path=%2Fassignment&security=tls&sni=www.ignitelimit.com&type=ws#%E7%BE%8E%E5%9B%BD+CloudFlare%E8%8A%82%E7%82%B9
+vless://83afd88f-200f-4d89-bfc7-66eff160c1d8@josni.hoyes.cloudns.ch:2053/?type=ws&encryption=none&flow=&host=josni.hoyes.cloudns.ch&path=/&security=tls&sni=josni.hoyes.cloudns.ch#%E7%BE%8E%E5%9B%BD+CloudFlare%E8%8A%82%E7%82%B9
+vless://63ae5b68-f6f8-432e-b440-d975053cfbc2@www.true.th:80/?type=ws&encryption=none&flow=&host=d16l6nb4do0zu4.cloudfront.net&path=/than#%E7%BE%8E%E5%9B%BD+V2CROSS.COM
+vless://711c018e-2692-4aa8-93f3-544d83fcd16c@jdwabxe.cvewfjg.shop:443?security=reality&type=raw&packetEncoding=xudp&sni=www.cloudflare.com&fp=chrome&flow=xtls-rprx-vision&sid=7a76f3c4b9dd&pbk=HyVSZ2OyySwXT-xRhTAqoiuYflIaj_b0Jxm7S1Iq9hs#%E7%BE%8E%E5%9B%BD+V2CROSS.COM
+vless://6202b230-417c-4d8e-b624-0f71afa9c75d@154.197.75.50:8880?security=none&type=ws&path=/?ed=2560&https://t.me/youtube@ZYFXS🇨🇳&host=vms.lifetime37.workers.dev&packetEncoding=xudp&encryption=none#%E5%8D%97%E9%9D%9E+V2CROSS.COM
 ```
 
 <h5>上方节点（部分）永久订阅地址：https://raw.githubusercontent.com/Pawdroid/Free-servers/main/sub</h5>
