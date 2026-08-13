@@ -18,42 +18,83 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. 获取目标仓库 README.md 内容并计算当前 MD5
-      - name: Fetch Remote README
-        id: fetch_readme
+      # 2. 批量拉取多目标，对比 Hash 并生成合并邮件内容
+      - name: Fetch and Check Multiple URLs
+        id: process_urls
         run: |
           mkdir -p data
-          # 获取目标 README.md 内容
-          curl -sSL "https://raw.githubusercontent.com/Pawdroid/Free-servers/main/README.md" -o data/latest_readme.md
           
-          # 计算当前 MD5 值
-          CURRENT_HASH=$(md5sum data/latest_readme.md | awk '{print $1}')
-          echo "CURRENT_HASH=$CURRENT_HASH" >> $GITHUB_ENV
-          
-          # 读取本地记录的旧 HASH (如果存在)
-          if [ -f data/last_hash.txt ]; then
-            LAST_HASH=$(cat data/last_hash.txt)
-          else
-            LAST_HASH=""
-          fi
-          echo "LAST_HASH=$LAST_HASH" >> $GITHUB_ENV
+          # ========================================================
+          # 💡 未来需要新增监控地址时，只需要在下面 URLS 数组中添加即可！
+          # 注意：GitHub 文件的 raw 地址格式为：https://raw.githubusercontent.com/用户名/仓库名/分支/文件路径
+          # ========================================================
+          URLS=(
+            "https://raw.githubusercontent.com/Pawdroid/Free-servers/main/README.md"
+            "https://raw.githubusercontent.com/cbusifabcap/daily_free_vpn/main/README.md"
+          )
 
-      # 3. 对比 Hash 判定内容是否有更新
-      - name: Compare Hash
-        id: check_change
-        run: |
-          if [ "$CURRENT_HASH" != "$LAST_HASH" ]; then
-            echo "CHANGED=true" >> $GITHUB_OUTPUT
-            # 保存最新的 HASH 到本地文件
-            echo "$CURRENT_HASH" > data/last_hash.txt
-          else
-            echo "CHANGED=false" >> $GITHUB_OUTPUT
-            echo "README 内容未发生变动，跳过发送邮件。"
-          fi
+          HAS_UPDATES="false"
+          EMAIL_BODY_FILE="data/email_body.html"
+          rm -f $EMAIL_BODY_FILE
 
-      # 4. 如果发生变动，发送邮件提醒
-      - name: Send mail on update
-        if: steps.check_change.outputs.CHANGED == 'true'
+          # 初始化邮件 HTML 样式开头
+          echo "<html><body>" > $EMAIL_BODY_FILE
+          echo "<h2>📢 GitHub 监控 README 更新提醒</h2>" >> $EMAIL_BODY_FILE
+          echo "<p>检查时间：$(date)</p>" >> $EMAIL_BODY_FILE
+
+          # 遍历所有配置的 URL
+          for raw_url in "${URLS[@]}"; do
+            # 生成安全的本地文件名和 Hash 保存文件名（基于 URL 计算 md5 命名，防止重名）
+            URL_KEY=$(echo -n "$raw_url" | md5sum | awk '{print $1}')
+            TEMP_FILE="data/temp_${URL_KEY}.md"
+            HASH_FILE="data/hash_${URL_KEY}.txt"
+
+            echo "正在检查: $raw_url"
+            curl -sSL "$raw_url" -o "$TEMP_FILE"
+
+            # 计算当前 MD5
+            CURRENT_HASH=$(md5sum "$TEMP_FILE" | awk '{print $1}')
+
+            # 读取历史 MD5
+            if [ -f "$HASH_FILE" ]; then
+              LAST_HASH=$(cat "$HASH_FILE")
+            else
+              LAST_HASH=""
+            fi
+
+            # 判断是否有更新
+            if [ "$CURRENT_HASH" != "$LAST_HASH" ]; then
+              echo " -> 检测到更新！"
+              HAS_UPDATES="true"
+              
+              # 保存新的 HASH
+              echo "$CURRENT_HASH" > "$HASH_FILE"
+
+              # 拼接分割线与更新内容到邮件正文中
+              echo "<hr style='border: 2px dashed #007bff; margin: 30px 0;' />" >> $EMAIL_BODY_FILE
+              echo "<h3>📌 来源地址: <a href='$raw_url'>$raw_url</a></h3>" >> $EMAIL_BODY_FILE
+              echo "<div style='background-color: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;'>" >> $EMAIL_BODY_FILE
+              echo "<pre style='white-space: pre-wrap; word-wrap: break-word;'>" >> $EMAIL_BODY_FILE
+              # HTML 转义 & < > 防格式错乱
+              sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' "$TEMP_FILE" >> $EMAIL_BODY_FILE
+              echo "</pre>" >> $EMAIL_BODY_FILE
+              echo "</div>" >> $EMAIL_BODY_FILE
+            else
+              echo " -> 内容未更新，跳过。"
+            fi
+
+            # 清理临时下载文件
+            rm -f "$TEMP_FILE"
+          done
+
+          echo "</body></html>" >> $EMAIL_BODY_FILE
+
+          # 输出环境变量给后续 Step 使用
+          echo "HAS_UPDATES=$HAS_UPDATES" >> $GITHUB_OUTPUT
+
+      # 3. 如果有任何一个地址更新，发送合并后的邮件
+      - name: Send mail on updates
+        if: steps.process_urls.outputs.HAS_UPDATES == 'true'
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.qq.com
@@ -63,22 +104,20 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           
-          subject: "【提醒】Pawdroid/Free-servers README 内容已更新！"
+          subject: "【提醒】您监控的 GitHub README 有内容更新！"
           to: ${{ secrets.TO_EMAIL }}
           from: GitHub Actions Monitor <${{ secrets.MAIL_USERNAME }}>
           
-          html_body: file://data/latest_readme.md
+          html_body: file://data/email_body.html
 
-      # 5. 更新数据并提交（兼具更新记录与防 60 天暂停的功能）
-      - name: Commit updated hash and keepalive
+      # 4. 自动 Commit Hash 变动及时间戳（保持仓库活跃防暂停）
+      - name: Commit updated hashes and keepalive
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          # 始终更新最后检查时间戳文件，确保仓库始终有 Commit 记录（原生防暂停）
           echo "Last check: $(date)" > data/last_check.txt
           
           git add data/
-          # 如果有变更（无论是 hash 变更还是心跳时间戳变更）就提交推送
-          git commit -m "chore: auto update status & keepalive [skip ci]" || exit 0
+          git commit -m "chore: auto update hashes & keepalive [skip ci]" || exit 0
           git push
