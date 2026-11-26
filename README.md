@@ -1,3 +1,3 @@
-# Pytorch-Tutorial and for free vpn 2026-10-17
+# Pytorch-Tutorial and for free vpn 2026-11-26
 Tutorial for learning pytorch
 
